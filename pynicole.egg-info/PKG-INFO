@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: pynicole
+Version: 0.0.1
+Summary: The python wrapper to run NLTE spectra synthesis code NICOLE.
+Home-page: https://github.com/MingjieJian/pynicole
+Author: Mingjie Jian
+Author-email: ssaajianmingjie@gmail.com
+License: UNKNOWN
+Description: # pyNICOLE: a python wrapper for running NICOLE
+        
+        Mingjie Jian
+        
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Framework :: IPython
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown

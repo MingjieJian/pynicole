@@ -1,0 +1,263 @@
+[CaII 8542]
+  Element='Ca'
+  Ionization stage=2
+  Wavelength= 8542.0857
+  Excitation potential=1.699932
+  Log(gf)=-0.36
+  Term (lower)=2D2.5
+  Term (upper)=2P1.5
+  Collisions='Barklem'
+  Damping sigma=291.0
+  Damping alpha=0.275
+  Width=25.
+  Mode='NLTE'
+  Transition index in model atom=5
+
+[CaII 8498]
+  Element='Ca'
+  Ionization stage=2
+  Wavelength=8498.0180
+  Excitation potential= 1.692488
+  Log(gf)=-1.318
+  Term (lower)= 2D1.5
+  Term (upper)= 2P1.5
+  Collisions='Barklem'
+  Damping sigma=291.0
+  Damping alpha=0.275
+  Width=16.
+  Mode='NLTE'
+  Transition index in model atom=4
+
+
+[CaII 8662]
+  Element='Ca'	
+  Ionization stage=2
+  Wavelength=8662.1353
+  Excitation potential= 1.692488
+  Log(gf)=-0.622
+  Term (lower)= 2D1.5
+  Term (upper)= 2P0.5
+  Collisions='Barklem'
+  Damping sigma=291.0
+  Damping alpha=0.275
+  Width=16.
+  Mode='NLTE'
+  Transition index in model atom=3
+
+
+[CaII K]
+  Element='Ca'	
+  Ionization stage=2
+  Wavelength=3933.6633
+  Excitation potential= 25414.4 cm-1
+  Log(gf)=0.135
+  Term (lower)= 2S0.5
+  Term (upper)= 2P1.5
+  Collisions='Barklem'
+  Damping sigma=234.0
+  Damping alpha=0.223
+  Width=40.
+  Mode='NLTE'
+  Transition index in model atom=2
+
+
+[CaII H]
+  Element='Ca'	
+  Ionization stage=2
+  Wavelength=3968.4684
+  Excitation potential= 25191.5 cm-1
+  Log(gf)=-0.18
+  Term (lower)= 2S0.5
+  Term (upper)= 2P0.5
+  Collisions='Barklem'
+  Damping sigma=234.0
+  Damping alpha=0.223
+  Width=40.
+  Mode='NLTE'
+  Transition index in model atom=1
+
+
+[FeI 6302]
+  Element='Fe'	
+  Ionization stage=1
+  Wavelength=6302.4940
+  Excitation potential= 3.6860
+  Log(gf)=-1.13
+  Term (lower)= 5P1.0
+  Term (upper)= 5D0.0
+  Collisions='Barklem'
+  Damping sigma=850.2
+  Damping alpha=0.239
+  Width=2.
+  Mode='LTE'
+
+[FeI 6301]
+  Element='Fe'	
+  Ionization stage=1
+  Wavelength=6301.5012
+  Excitation potential= 3.6540
+  Log(gf)=-0.718
+  Term (lower)= 5P2.0
+  Term (upper)= 5D2.0
+  Collisions='Barklem'
+  Damping sigma=834.4
+  Damping alpha=0.243
+  Width=2.
+  Mode='LTE'
+
+[MnI 8701]
+  Element='Mn'
+  Ionization stage=1
+  Wavelength=8701.0120
+  Excitation potential=4.4290
+  Log(gf)=-0.477
+  Term (lower)= 6P2.5
+  Term (upper)= 6D2.5
+  Collisions='Barklem'
+  Damping sigma=737.77
+  Damping alpha=0.262
+  Width=2.
+  Mode='LTE'
+  Hyperfine structure=Yes
+  Hyperfine Alow=-0.01891
+  Hyperfine Blow=-0.00226
+  Hyperfine Aup= 0.017600
+  Hyperfine Bup= 0.003000
+  Nuclear spin=2.5
+
+[MnI 8740]
+  Element='Mn'
+  Ionization stage=1
+  Wavelength=8740.9140
+  Excitation potential=4.4350
+  Log(gf)=-0.055
+  Term (lower)= 6P3.5
+  Term (upper)= 6D4.5
+  Collisions='Barklem'
+  Damping sigma=736.41
+  Damping alpha=0.262
+  Width=2.
+  Mode='LTE'
+  Hyperfine structure=Yes
+  Hyperfine Alow= -0.01384
+  Hyperfine Blow= -0.000617
+  Hyperfine Aup= -0.01551
+  Hyperfine Bup=  0.00090
+  Nuclear spin=2.5
+
+[MnI 5537]
+  Element='Mn'
+  Ionization stage=1
+  Wavelength=5537.760
+  Excitation potential=2.1870
+  Log(gf)=-2.017
+  Term (lower)= 6D0.5
+  Term (upper)= 6P1.5
+  Collisions='Barklem'
+  Damping sigma=399.14
+  Damping alpha=0.281
+  Width=2.
+  Mode='LTE'
+  Hyperfine structure=Yes
+  Hyperfine Alow= 0.04
+  Hyperfine Blow= 0.00
+  Hyperfine Aup= -0.03105
+  Hyperfine Bup=  0.0006
+  Nuclear spin=2.5
+
+[FeI 6301.5]
+  Element=Fe
+  Ionization stage=1
+  Wavelength=6301.5080
+  Excitation potential= 29440.17 cm-1 # 3.65 eV
+  Log(gf)=-0.59
+  Term (lower)=5P2.0
+  Term (upper)=5D2.0
+  Collisions=Unsold
+  Width=2
+
+[He 10830-1]
+  Element='He'
+  Ionization stage=1
+  Wavelength=10830.3360
+  Excitation potential = 9230.7914 cm-1
+  Log(gf) = -0.047
+  Term (lower)= 3S1.0
+  Term (upper)= 3P2.0
+  Collisions=Unsold
+  Width=5
+  Mode='NLTE'
+  Transition index in model atom=6
+
+[He 10830-2]
+  Element='He'
+  Ionization stage=1
+  Wavelength=10830.2470
+  Excitation potential = 9230.8684 cm-1
+  Log(gf) = -0.268
+  Term (lower)= 3S1.0
+  Term (upper)= 3P1.0
+  Collisions=Unsold
+  Width=5
+  Mode='NLTE'
+  Transition index in model atom=7
+
+[He 10830-3]
+  Element='He'
+  Ionization stage=1
+  Wavelength=10829.088
+  Excitation potential = 9231.8564 cm-1
+  Log(gf) = -0.745
+  Term (lower)= 3S1.0
+  Term (upper)= 3P0.0
+  Collisions=Unsold
+  Width=5
+  Mode='NLTE'
+  Transition index in model atom=8
+
+[H alpha]
+  Element='H'	
+  Ionization stage=1
+  Wavelength=6562.7970
+  Excitation potential= 15233.234 cm-1
+  Log(gf) = 0.710
+  Term (lower)= 2S0.0
+  Term (upper)= 3S0.0
+  Collisions=3
+  Gamma Radiative = 8.766
+  Gamma Stark = 2
+  Gamma van der Waals = 3
+  Width=5
+  Mode='NLTE'
+  Transition index in model atom=5
+
+[H beta]
+  Element='H'	
+  Ionization stage=1
+  Wavelength=4861.3230
+  Excitation potential= 20564.836 cm-1
+  Log(gf) = -0.02
+  Term (lower)= 2S0.0
+  Term (upper)= 4S0.0
+  Collisions=3
+  Gamma Radiative = 8.766
+  Gamma Stark = 2
+  Gamma van der Waals = 3
+  Width=5
+  Mode='NLTE'
+  Transition index in model atom=6
+
+
+[FeI 6302]
+  Element='Fe'	
+  Ionization stage=1
+  Wavelength=6302.4940
+  Excitation potential= 3.6860
+  Log(gf)=-1.13
+  Term (lower)= 5P1.0
+  Term (upper)= 5D0.0
+  Collisions='Barklem'
+  Damping sigma=850.2
+  Damping alpha=0.239
+  Width=2.
+  Mode='LTE'
