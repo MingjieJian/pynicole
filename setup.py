@@ -67,7 +67,9 @@ setuptools.setup(
           'spectres',
           'tqdm',
           'pymoog',
-          'rulerwd'
+          'rulerwd',
+          'codecs',
+          'configobj'
       ],
       include_package_data=True,  
     #   package_data={'': ['moog_nosm/moog_nosm_FEB2017/']},

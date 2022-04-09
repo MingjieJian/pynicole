@@ -1,5 +1,5 @@
 from . import model_prof_tools
-import re
+import re, os
 import numpy as np
 import pandas as pd
 from astropy import constants
@@ -9,6 +9,8 @@ import subprocess
 import rulerwd
 import pymoog
 import matplotlib.pyplot as plt
+
+file_path = '{}/.pynicole/files/'.format(os.environ['HOME'])
 
 para_type_dict = {
     'command': 'str',
@@ -447,7 +449,7 @@ def read_pop(filename, model):
     
     return pop
 
-lines = read_input_file('/media/disk/py-package/rulerwd/rulerwd/file/nicole/LINES', lines=True)
+lines = read_input_file(file_path + '/nicole/LINES', lines=True)
 
 package_path = path.dirname(__file__)
 

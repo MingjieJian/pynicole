@@ -151,7 +151,7 @@ import re
 import struct
 import subprocess
 import getopt
-from rulerwd.file.nicole.model_prof_tools import *
+from pynicole.model_prof_tools import *
 
 elements=['h','he','li','be','b','c','n','o','f','ne', 
           'na','mg','al','si','p','s','cl','ar','k','ca','sc','ti','v','cr', 

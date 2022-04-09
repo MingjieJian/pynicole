@@ -7,3 +7,5 @@ astropy >= 4.0
 spectres
 tqdm
 rulerwd
+codecs
+configobj
