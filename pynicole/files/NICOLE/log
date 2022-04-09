@@ -1,0 +1,288 @@
+compex/compex.f90:     print *,'Need to change definition of X_max in nodes_info.f90'
+compex/compex.f90:! free parameters vector X. The result is returned in New_model.
+compex/compex.f90:Subroutine Expand(Params, Nodes, X, New_model_2comp)
+compex/compex.f90:  Type (Model_2comp) :: New_model_2comp
+compex/compex.f90:  Type (Model) :: New_model, Ref
+compex/compex.f90:  New_model=Nodes%Reference_model%Comp1
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%temp=Ref%temp+y*Norm_t
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%v_los=Ref%v_los+y*Norm_v
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%v_mic=Ref%v_mic+y*Norm_mic
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%b_long=Ref%b_long+y*Norm_blong
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%b_x=Ref%b_x+y*Norm_bx
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%b_y=Ref%b_y+y*Norm_by
+compex/compex.f90:!     If (New_model%b_x(ind) .lt. 0) then
+compex/compex.f90:!        New_model%b_x(ind)=-New_model%b_x(ind)
+compex/compex.f90:!        New_model%b_y(ind)=-New_model%b_y(ind)
+compex/compex.f90:     New_model%v_mac=Ref%v_mac+X(ifree)*Norm_mac
+compex/compex.f90:     New_model%stray=Ref%stray+X(ifree)*Norm_stray
+compex/compex.f90:     New_model%chrom_x=Ref%chrom_x+X(ifree)*Norm_chrom_x
+compex/compex.f90:     New_model%chrom_y=Ref%chrom_y+X(ifree)*Norm_chrom_y
+compex/compex.f90:     New_model%ffactor=Ref%ffactor+X(ifree)*Norm_ffactor
+compex/compex.f90:        New_model%abundance(Nodes%i_nodes_ab(idx))=Ref%Abundance(Nodes%i_nodes_ab(idx)) + &
+compex/compex.f90:  New_model_2comp%Comp1=New_model
+compex/compex.f90:  Call Hydrostatic(Params, New_model_2comp%Comp1, Error)
+compex/compex.f90:     New_model_2comp%Comp2=New_model_2comp%Comp1
+compex/compex.f90:  New_model=Nodes%Reference_model%Comp2
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%temp=Ref%temp+y*Norm_t
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%v_los=Ref%v_los+y*Norm_v
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%v_mic=Ref%v_mic+y*Norm_mic
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%b_long=Ref%b_long+y*Norm_blong
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%b_x=Ref%b_x+y*Norm_bx
+compex/compex.f90:     Call Expand_variable(npoints, New_model%ltau_500, Node_values, &
+compex/compex.f90:     New_model%b_y=Ref%b_y+y*Norm_by
+compex/compex.f90:!     If (New_model%b_x(ind) .lt. 0) then
+compex/compex.f90:!        New_model%b_x(ind)=-New_model%b_x(ind)
+compex/compex.f90:!        New_model%b_y(ind)=-New_model%b_y(ind)
+compex/compex.f90:     New_model%chrom_x=Ref%chrom_x+X(ifree)*Norm_chrom_x
+compex/compex.f90:     New_model%chrom_y=Ref%chrom_y+X(ifree)*Norm_chrom_y
+compex/compex.f90:        New_model%abundance(Nodes%i_nodes_ab2(idx))=Ref%Abundance(Nodes%i_nodes_ab2(idx)) + &
+compex/compex.f90:  New_model_2comp%Comp2=New_model
+compex/compex.f90:  New_model_2comp%Comp2%ffactor=1.-New_model_2comp%Comp1%ffactor
+compex/compex.f90:  Call Hydrostatic(Params, New_model_2comp%Comp2, Error)
+compex/compex.f90:     Atmo_errors%temp=-1. ! Negative values signal no error bars at this point
+compex/compex.f90:     Atmo_errors%v_los=-1. ! Negative values signal no error bars at this point
+compex/compex.f90:     Atmo_errors%v_mic=-1. ! Negative values signal no error bars at this point
+compex/compex.f90:     Atmo_errors%b_long=-1. ! Negative values signal no error bars at this point
+compex/compex.f90:     Atmo_errors%b_x=-1. ! Negative values signal no error bars at this point
+compex/compex.f90:     Atmo_errors%b_y=-1. ! Negative values signal no error bars at this point
+compex/compex.f90:     Atmo_errors%v_mac=-1. ! Negative values signal no error bars
+compex/compex.f90:     Atmo_errors%stray=-1. ! Negative values signal no error bars
+compex/compex.f90:     Atmo_errors%ffactor=-1. ! Negative values signal no error bars
+compex/compex.f90:     Atmo_errors%chrom_x=-1. ! Negative values signal no error bars
+compex/compex.f90:     Atmo_errors%chrom_y=-1. ! Negative values signal no error bars
+compex/compex.f90:     Atmo_errors%Abundance=-1. ! Negative values signal no error bars at this point
+Binary file compex/compex.o matches
+forward/#wittmann_opac.f90#:       real, dimension(1) :: T1, Ne1, n0overn, n1overn, n2overn
+forward/#wittmann_opac.f90#:      Ne1(1)=p(9)
+forward/#wittmann_opac.f90#:! Neutral He
+forward/#wittmann_opac.f90#:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/#wittmann_opac.f90#:! Neutral C
+forward/#wittmann_opac.f90#:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/#wittmann_opac.f90#:! Neutral Na
+forward/#wittmann_opac.f90#:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/#wittmann_opac.f90#:! Neutral Mg
+forward/#wittmann_opac.f90#:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/ann/ANN_forward.f90:! Neural Network, and returns the result at the output nodes.
+forward/ann/ANN_forward.f90:! Network output
+forward/ann/ann_pefrompg.f90:! Use a Neural network to obtain Pg from (T,Pe,Metalicity)
+forward/ann/ann_pgfrompe.f90:! Use a Neural network to obtain Pg from (T,Pe)
+forward/borrame_eq_state:       ! Negative ions partial pressure
+forward/borrame_eq_state:       ! Negative ion constant			
+forward/eq_state.f90:       ! Negative ions partial pressure
+forward/eq_state.f90:       ! Negative ions partial pressure
+forward/eq_state.f90:       ! Negative ions partial pressure
+forward/eq_state.f90:  ! Solves a system of nonlinear equations using the Newton mthod
+forward/eq_state.f90:       ! Negative ion constant         
+forward/eq_state.f90:    Real :: logPe, T, AtomicFraction, Ne, Ptot, NHtot, Met2, DU1, DU2, DU3
+forward/eq_state.f90:    Real, Dimension(1) :: T1, Ne1
+forward/eq_state.f90:       Ne4(1:n_grid)=Pe4(1:n_grid)/BK/Temp4(1:n_grid)
+forward/eq_state.f90:       Call Saha123(n_grid, 1, Temp4, Ne4, n0overn, n1overn, n2overn)
+forward/eq_state.f90:          If (AtomicFraction .lt. -0.10) then ! Need to use ANN
+forward/eq_state.f90:    Real, Dimension(1) :: U12, U23, U1, U2, U3, DU1, DU2, DU3, Ne, P4
+forward/eq_state.f90:    Real :: totalnuclei, donornuclei, Ioniz, Ne, scale
+forward/eq_state.f90:    Real, Dimension(1) :: n0overn, n1overn, n2overn, nminusovern, T1, Ne1
+forward/eq_state.f90:          Ne=Pe4(loop)/BK/T
+forward/eq_state.f90:          If (AtomicFraction .lt. -0.10) then ! Need to use ANN
+forward/eq_state.f90:          Ne1(1)=Ne
+forward/eq_state.f90:          Call Saha123(1, iel, T1(1), Ne1(1),n0overn(1),n1overn(1),n2overn(1))
+forward/eq_state.f90:                Call Saha123(1, iel, T1(1), Ne1(1),n0overn(1),n1overn(1),n2overn(1))
+forward/eq_state_sp:       ! Negative ions partial pressure
+forward/eq_state_sp:       ! Negative ions partial pressure
+forward/eq_state_sp:  ! Solves a system of nonlinear equations using the Newton mthod
+forward/eq_state_sp:       ! Negative ion constant         
+forward/forward.f90:        Do i=m/2+2, m ! Negative x
+forward/forward.f90:        End do ! Next Stokes parameter
+forward/forward.f90:  End do ! Next spectral region
+forward/forward.f90:     Print *,'Error: Input density must be one of the following: Pel, Nel, Dens or Pgas'
+forward/forward.f90:  ! New height scale and interpolate atmosphere 
+forward/forward.f90:  Params%def_abund=0 ! Force to not use ANN. Need to revise this
+forward/forward.f90:        Print *,'maxnfudge too low in forward/background.f90. Need at least:',Params%n_regions
+forward/forward.f90:  ! Need to do NLTE calculation or are we in pure LTE mode?
+forward/forward.f90:                    Call Debug_Log('Negative absorption in routine forward',2)
+forward/forward.f90:                          Call Debug_Log('Negative absorption in routine forward',1)
+Binary file forward/forward.o matches
+forward/lte.f90:Function Saha(npoints, T, Ne, U1, U2, E_ioniz)
+forward/lte.f90:  Real, dimension (npoints) :: T, Ne, U1, U2, Saha
+forward/lte.f90:  Sahad(1:npoints)=Ne(1:npoints)*2.07D-16*U1(1:npoints)/U2(1:npoints)* &
+forward/lte.f90:Subroutine Saha123(npoints,iel,T,Ne,n0overn,n1overn,n2overn)
+forward/lte.f90:  Real, dimension (npoints) :: T, Ne, U1, U2, U3, D1, D2, D3, n1overn, n2overn,  &
+forward/lte.f90:  n1overn0=1./saha(npoints, T, Ne, U1, U2, Ioniz)
+forward/lte.f90:     n2overn1=1./saha(npoints, T, Ne, U2, U3, Ioniz)
+forward/lte.f90:     nminusovern0=saha(npoints, T, Ne, U2, U1, Ioniz) ! For Hminus
+forward/NLTE/NLTE.f90:     Call Set_hardwired_values ! Need to externalize hardwired values
+forward/NLTE/NLTE.f90:        NLTEInput%Elim2=NLTEInput%Elim1 !   Need to look into it
+forward/NLTE/NLTE.f90:             Call Debug_Log('Error!! Negative NLTE continuum opaicity',1)
+forward/NLTE/NLTE.f90: NH(1,:)=NLTE%Atmo%nH(:) ! Neutral H
+forward/NLTE/NLTE.f90:            Print *,'WARNING: Negative I or LStar <0 or >1'
+forward/NLTE/NLTE.f90:!     Function Saha(npoints, T, Ne, U1, U2, E_ioniz)
+forward/NLTE/NLTE.f90:!       Real, dimension (npoints) :: T, Ne, U1, U2, Saha
+forward/NLTE/NLTE.f90:           Print *,'Negative excitation potential in LTE_pop_2'
+forward/NLTE/NLTE.f90:  Logical :: Converged, Newmat, Cont, resetNG
+forward/NLTE/NLTE.f90:  Newmat=.True.
+forward/NLTE/NLTE.f90:     If (Newmat) then
+forward/NLTE/NLTE.f90:           If (NewMat) then
+forward/NLTE/NLTE.f90:!           If (NewMat) then
+forward/NLTE/NLTE.f90:!           If (NewMat) then
+forward/NLTE/NLTE.f90:                Print *,'Warning! Negative populations!'
+forward/NLTE/NLTE.f90:             print *,'Negative or NaN pop after NG!!' 
+forward/NLTE/NLTE.f90:!     If (RelChg .lt. NLTEInput%elim1 .and. NewMat) THEN
+forward/NLTE/NLTE.f90:!        NewMat=.FALSE.
+Binary file forward/NLTE/NLTE.o matches
+forward/sopa/old_f77_sopa_source:C   H, Si, C, Mg, Al, Fe, He, N, O, Ne, Na, P, S, Ar, Ca, Cr, Mn.
+forward/sopa/old_f77_sopa_source:C   H, Si, C, Mg, Al, Fe, He, N, O, Ne, Na, P, S, Ar, Ca, Cr, Mn.
+forward/sopa/old_f77_sopa_source:C        New RHO and P_gas differ from model values                     
+forward/sopa/sopa.presource:!   H, Si, C, Mg, Al, Fe, He, N, O, Ne, Na, P, S, Ar, Ca, Cr, Mn.
+forward/sopa/sopa.presource:!   H, Si, C, Mg, Al, Fe, He, N, O, Ne, Na, P, S, Ar, Ca, Cr, Mn.
+forward/uv_opacity_dm.f90:    Real, Dimension(1) :: TT, U1, U2, U3, dU1, dU2, dU3, n0overn1, Ne
+forward/uv_opacity_dm.f90:    Ne(1)=Pe/BK/T
+forward/uv_opacity_dm.f90:          n0overn1=Saha(1, TT, Ne, U1, U2, Eioniz)
+forward/uv_opacity_dm.f90:! Neutral H photoionization
+forward/uv_opacity_dm.f90:    n0overn1=Saha(1, TT, Ne, U1, U2, Eioniz)
+forward/uv_opacity_topbase.f90:    Real, Dimension(1) :: TT, U1, U2, U3, dU1, dU2, dU3, n0overn1, Ne
+forward/uv_opacity_topbase.f90:    Ne(1)=Pe/BK/T
+forward/uv_opacity_topbase.f90:          n0overn1=Saha(1, TT, Ne, U1, U2, Eioniz)
+forward/wittmann_eqstate.f90:         print*,'WARNING: Negative values of the electron pressure'
+Binary file forward/wittmann_eqstate.o matches
+forward/wittmann_opac.f90:       real, dimension(1) :: T1, Ne1, n0overn, n1overn, n2overn
+forward/wittmann_opac.f90:      Ne1(1)=p(9)
+forward/wittmann_opac.f90:! Neutral He
+forward/wittmann_opac.f90:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/wittmann_opac.f90:! Neutral C
+forward/wittmann_opac.f90:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/wittmann_opac.f90:! Neutral Na
+forward/wittmann_opac.f90:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+forward/wittmann_opac.f90:! Neutral Mg
+forward/wittmann_opac.f90:      Call Saha123(1,iel, T1, Ne1, n0overn, n1overn, n2overn)
+main/nicole.f90:  Read (headerunit, *) Params%Negligible_opacity
+main/nicole.f90:  ! Next cycle. Free memory for possibly different new arrays
+main/nicole.f90:          Write (Debug_FileUnit,*) 'Ne'
+main/nicole.f90:             Write (Debug_FileUnit,*) 'Ne'
+Binary file main/atomic_data.mod matches
+Binary file main/eq_state.mod matches
+Binary file main/lorien_module.mod matches
+Binary file main/maths_chemical.mod matches
+Binary file main/nicole matches
+main/nicole.presource:  Read (headerunit, *) Params%Negligible_opacity
+main/nicole.presource:  ! Next cycle. Free memory for possibly different new arrays
+Binary file main/nr.mod matches
+main/param_struct.f90:     Real :: Noise, Update_opac, Negligible_opacity
+Binary file manual/manual.dvi matches
+manual/manual.log: New documents should use Standard LaTeX conventions and start
+Binary file manual/manual.pdf matches
+manual/manual.ps:false[(Display)(NeXT)(LaserWriter 16/600)]{A length product length le{A
+manual/manual.ps:(time.)425 3705 y Fi(\017)41 b Fm(Negligible)e(opacit)n(y:)61
+manual/manual.ps:1108 3652 y(are)g(P)n(el,)h(Nel,)h(Pgas)e(or)h(Dens.)1025
+manual/manual.ps:425 3380 y(New)c(in)h(v2.0)e(NICOLE)g(has)h(a)g(system)g(analyzer)f
+manual/manual.ps:y(\(ed.\),)g(New)g(Y)-7 b(ork;)27 b(London;)g(Academic)g(Press)f(1967)
+manual/manual.tex:\item Negligible opacity: (Optional, default=0.0). Opacity threshold
+manual/manual.tex:  values for this field are Pel, Nel, Pgas or Dens. 
+manual/manual.tex:New in v2.0 NICOLE has a system analyzer written in Python that will
+manual/manual.tex:  B. (ed.), New York; London; Academic Press 1967
+Binary file manual.pdf matches
+misc/checknan.f90:!   Print *,'Negative absolute value'
+run/configobj.py:    'NestingError',
+run/configobj.py:class NestingError(ConfigObjError):
+run/configobj.py:                                       NestingError, infile, cur_index)
+run/configobj.py:                                           NestingError, infile, cur_index)
+run/configobj.py:                                       NestingError, infile, cur_index)
+run/idlsave.py:    # Next, the record format, which is '\x00\x04' for normal .sav
+run/incline.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+Binary file run/modelout.pro matches
+run/model_prof_tools.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+run/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file run/NLTE_sf.dat matches
+run/run_nicole.py:    negligible_opac=get_value(config,'Negligible opacity','0','NICOLE.input')
+run/run_nicole.py:        print('Error in NICOLE.input. Input density must be either Pel, Pgas, Nel or Dens')
+run/run_nicole.py:                print('Need 92 values for abundances. Found:',len(ablist))
+run/run_nicole.py:        print('Needs to be either NICOLE or MULTI')
+Binary file run/__pycache__/configobj.cpython-36.pyc matches
+Binary file run/__pycache__/configobj.cpython-38.pyc matches
+run_inv/model_prof_tools.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+run_inv/configobj.py:    'NestingError',
+run_inv/configobj.py:class NestingError(ConfigObjError):
+run_inv/configobj.py:                                       NestingError, infile, cur_index)
+run_inv/configobj.py:                                           NestingError, infile, cur_index)
+run_inv/configobj.py:                                       NestingError, infile, cur_index)
+run_inv/idlsave.py:    # Next, the record format, which is '\x00\x04' for normal .sav
+run_inv/incline.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+run_inv/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file run_inv/NLTE_sf.dat matches
+Binary file run_inv/Populations.dat matches
+run_inv/run_nicole.py:    negligible_opac=get_value(config,'Negligible opacity','0','NICOLE.input')
+run_inv/run_nicole.py:        print('Error in NICOLE.input. Input density must be either Pel, Pgas, Nel or Dens')
+run_inv/run_nicole.py:                print('Need 92 values for abundances. Found:',len(ablist))
+run_inv/run_nicole.py:        print('Needs to be either NICOLE or MULTI')
+Binary file run_inv/__pycache__/configobj.cpython-36.pyc matches
+Binary file run_inv/__pycache__/configobj.cpython-38.pyc matches
+run_inv_test/model_prof_tools.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+Binary file run_inv_test/.fuse_hidden00018d3b00000065 matches
+run_inv_test/configobj.py:    'NestingError',
+run_inv_test/configobj.py:class NestingError(ConfigObjError):
+run_inv_test/configobj.py:                                       NestingError, infile, cur_index)
+run_inv_test/configobj.py:                                           NestingError, infile, cur_index)
+run_inv_test/configobj.py:                                       NestingError, infile, cur_index)
+Binary file run_inv_test/hsra.pro matches
+run_inv_test/idlsave.py:    # Next, the record format, which is '\x00\x04' for normal .sav
+run_inv_test/incline.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+Binary file run_inv_test/modelout.pro matches
+run_inv_test/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file run_inv_test/NLTE_sf.dat matches
+run_inv_test/run_nicole.py:    negligible_opac=get_value(config,'Negligible opacity','0','NICOLE.input')
+run_inv_test/run_nicole.py:        print('Error in NICOLE.input. Input density must be either Pel, Pgas, Nel or Dens')
+run_inv_test/run_nicole.py:                print('Need 92 values for abundances. Found:',len(ablist))
+run_inv_test/run_nicole.py:        print('Needs to be either NICOLE or MULTI')
+Binary file run_inv_test/__inputprof.bin_1 matches
+Binary file run_inv_test/__pycache__/configobj.cpython-36.pyc matches
+Binary file run_inv_test/__pycache__/configobj.cpython-38.pyc matches
+run_test/model_prof_tools.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+run_test/configobj.py:    'NestingError',
+run_test/configobj.py:class NestingError(ConfigObjError):
+run_test/configobj.py:                                       NestingError, infile, cur_index)
+run_test/configobj.py:                                           NestingError, infile, cur_index)
+run_test/configobj.py:                                       NestingError, infile, cur_index)
+run_test/idlsave.py:    # Next, the record format, which is '\x00\x04' for normal .sav
+run_test/incline.py:# Check size of default types. Need 32-bit integers, 64-bit integers and floats
+run_test/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+run_test/run_nicole.py:    negligible_opac=get_value(config,'Negligible opacity','0','NICOLE.input')
+run_test/run_nicole.py:        print('Error in NICOLE.input. Input density must be either Pel, Pgas, Nel or Dens')
+run_test/run_nicole.py:                print('Need 92 values for abundances. Found:',len(ablist))
+run_test/run_nicole.py:        print('Needs to be either NICOLE or MULTI')
+Binary file run_test/__pycache__/configobj.cpython-36.pyc matches
+Binary file run_test/__pycache__/configobj.cpython-38.pyc matches
+Binary file test/CaHK/configobj.pyc matches
+test/CaHK/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/conv1/configobj.pyc matches
+test/conv1/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/conv2/configobj.pyc matches
+test/conv2/NICOLE.input:Input density= PGas # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/H/configobj.pyc matches
+test/H/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/H/valc_mag.pro matches
+Binary file test/He/configobj.pyc matches
+test/He/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/He/valc_mag.pro matches
+Binary file test/inv1/configobj.pyc matches
+test/inv1/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+test/inv1/NICOLE.input_2:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/inv2/configobj.pyc matches
+test/inv2/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+test/inv2/NICOLE.input_2:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/syn1/configobj.pyc matches
+test/syn1/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/syn2/configobj.pyc matches
+test/syn2/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+Binary file test/syn3/configobj.pyc matches
+test/syn3/NICOLE.input:Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+time_code/profiling.f90:      If (iroutine .eq. -1) then ! New routine
+time_code/profiling.presource:      If (iroutine .eq. -1) then ! New routine

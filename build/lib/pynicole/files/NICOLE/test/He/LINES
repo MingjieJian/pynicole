@@ -1,0 +1,115 @@
+# LINES database file
+# Use # to create comments and "=" to specify values
+# Each line is defined by a label in brackets. This label will be used to
+# refer to it in NICOLE so make sure it's easy to remember. It is recommended
+# to follow a standard notation such as FeI 6302.5
+#
+[FeI 6301.5]
+   Element=Fe
+   Ionization stage=1
+   Wavelength=6301.5080
+   Excitation potential= 29440.17 cm-1 # 3.65 eV
+   Log(gf)=-0.59
+   Term (lower)=5P2.0
+   Term (upper)=5D2.0
+   Collisions=Unsold
+   Width=2
+
+[CaII 8542]
+   Element=Ca
+   Ionization stage=2
+   Wavelength=8542.09
+   Excitation potential= 1.69995
+   Log(gf)=-0.463
+   Term (lower)=2D2.5
+   Term (upper)=2P1.5
+   Collisions=Unsold
+   Damping enhancement=2.01
+   Width=20
+   Mode=NLTE
+   Transition index in model atom=5
+
+[CaII K]
+  Element='Ca'	
+  Ionization stage=2
+  Wavelength=3933.6633
+  Excitation potential= 0.0000
+  Log(gf)=0.135
+  Term (lower)= 2S0.5
+  Term (upper)= 2P1.5
+  Collisions='Barklem'
+  Damping sigma=234.0
+  Damping alpha=0.223
+  Width=40.
+  Mode='NLTE'
+  Transition index in model atom=2
+
+[CaII H]
+  Element='Ca'	
+  Ionization stage=2
+  Wavelength=3968.4684
+  Excitation potential= 0.0000
+  Log(gf)=-0.18
+  Term (lower)= 2S0.5
+  Term (upper)= 2P0.5
+  Collisions='Barklem'
+  Damping sigma=234.0
+  Damping alpha=0.223
+  Width=40.
+  Mode='NLTE'
+  Transition index in model atom=1
+
+[H alpha]
+  Element='H'	
+  Ionization stage=1
+  Wavelength=6562.7970
+  Excitation potential= 15233 cm-1
+  Log(gf) = 0.710
+  Term (lower)= 2S1.5
+  Term (upper)= 3S2.5
+  Collisions=3
+  Gamma Radiative = 8.766
+  Gamma Stark = 2
+  Gamma van der Waals = 3
+  Width=5
+  Mode='NLTE'
+  Transition index in model atom=5
+
+[He 10830-1]
+  Element=He
+  Ionization stage=1
+  Wavelength=10830.3360
+  Excitation potential = 9230.7914 cm-1
+  Log(gf) = -0.047
+  Term (lower)= 3S1.0
+  Term (upper)= 3P2.0
+  Collisions=Unsold
+  Width=5
+  Mode=NLTE
+  Transition index in model atom=6
+
+[He 10830-2]
+  Element=He
+  Ionization stage=1
+  Wavelength=10830.2470
+  Excitation potential = 9230.8684 cm-1
+  Log(gf) = -0.268
+  Term (lower)= 3S1.0
+  Term (upper)= 3P1.0
+  Collisions=Unsold
+  Width=5
+  Mode=NLTE
+  Transition index in model atom=7
+
+[He 10830-3]
+  Element=He
+  Ionization stage=1
+  Wavelength=10829.088
+  Excitation potential = 9231.8564 cm-1
+  Log(gf) = -0.745
+  Term (lower)= 3S1.0
+  Term (upper)= 3P0.0
+  Collisions=Unsold
+  Width=5
+  Mode=NLTE
+  Transition index in model atom=8

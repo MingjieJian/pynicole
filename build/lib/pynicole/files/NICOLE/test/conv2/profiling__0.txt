@@ -1,0 +1,11 @@
+ Code execution started on: 2022/02/22 at 14:00:05.129
+   Code execution ended on: 2022/02/22 at 14:00:05.147
+ Total execution time (s):           0
+ Total execution time (hours):   4.9999999999999996E-006
+ Subroutines profiled   (Name, number of calls, time(s), % of total time)
+    main           1   1.7999999999999999E-002   100.00000000000000     
+    Fill densities           1   1.2999999999999999E-002   72.222222222222214     
+    compute_pe           1   1.2999999999999999E-002   72.222222222222214     
+    compute_pg        1617   1.2999999999999999E-002   72.222222222222214     
+    background_opac          95   1.0000000000000000E-003   5.5555555555555562     
+    compute_others_from_T_Pe_Pg           1   0.0000000000000000        0.0000000000000000     

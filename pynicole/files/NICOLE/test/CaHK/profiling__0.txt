@@ -1,0 +1,16 @@
+ Code execution started on: 2022/02/22 at 15:33:13.519
+   Code execution ended on: 2022/02/22 at 15:33:14.684
+ Total execution time (s):           1
+ Total execution time (hours):   3.2333333333333330E-004
+ Subroutines profiled   (Name, number of calls, time(s), % of total time)
+    main           1   1.1639999999999999        100.00000000000000     
+    forward           1   1.1279999999999999        96.907216494845358     
+    background_opac        2112  0.91600000000000004        78.694158075601379     
+    solvestat           1  0.11600000000000001        9.9656357388316152     
+    NLTE_formalsolution       16200   9.7000000000000003E-002   8.3333333333333339     
+    formalsolution        2000   3.4000000000000002E-002   2.9209621993127151     
+    profiles          16   1.4999999999999999E-002   1.2886597938144331     
+    Fill densities           2   2.0000000000000000E-003  0.17182130584192443     
+    compute_pg           2   2.0000000000000000E-003  0.17182130584192443     
+    compute_others_from_T_Pe_Pg         169   0.0000000000000000        0.0000000000000000     
+    eneq        1333   0.0000000000000000        0.0000000000000000     

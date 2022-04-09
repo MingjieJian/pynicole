@@ -1,0 +1,63 @@
+# Configuration file for NICOLE
+# Use # to create comments and "=" to specify values
+Mode = i
+#
+# Fields required for both modes, synthesis and inversion:
+#
+Input model= valc_in.model
+Output profiles= modelout.pro # Output profiles
+Heliocentric angle= 1 #   0.953 # Cos(mu)
+#
+# Fields required only for the inversion mode:
+#
+Observed profiles= hsra.pro
+Output model= modelout.mod
+Regularization=0
+#
+# Other misc optional fields
+#
+Formal solution method= 0 #(0=auto,1=Hermite,2=WPM,3=Delolin,4=Delopar,5=SC)
+Printout detail= 4 # (default=1)
+#
+Acceptable Chi-square=0.01
+Maximum number of inversions= 6
+Continuum reference= 1 # Normalized to HSRA at disk center, local wavelength
+Height scale=tau
+Debug mode=1
+Optimize grid=0
+Output Populations=1
+Output NLTE Source Function=1
+Output Continuum Opacity=1
+#
+Impose hydrostatic equilibrium= N # Y/N (Only for synthesis)
+Input density= Pel # (Can be Pgas, Pel, Nel, Dens)
+#
+# Spectral regions
+#
+[Region 1]
+  First wavelength=6300.
+  Wavelength step= 20 mA
+  Number of wavelengths= 200
+[Region 2]
+  First wavelength=8538
+  Wavelength step= 20 mA
+  Number of wavelengths= 400
+[Region 3]
+  First wavelength=3926.
+  Wavelength step= .02 A
+  Number of wavelengths= 800
+[Region 4]
+  First wavelength=3960.
+  Wavelength step= .02 A
+  Number of wavelengths= 800
+#
+# Spectral lines
+#
+[Line 1]
+  Line=FeI 6301.5
+[Line 2]
+  Line=CaII 8542
+[Line 3]
+  Line=CaII H
+[Line 4]
+  Line=CaII K
