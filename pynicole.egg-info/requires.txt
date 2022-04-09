@@ -7,3 +7,4 @@ astropy>=4.0
 spectres
 tqdm
 pymoog
+rulerwd

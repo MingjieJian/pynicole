@@ -66,7 +66,8 @@ setuptools.setup(
           'astropy >= 4.0',
           'spectres',
           'tqdm',
-          'pymoog'
+          'pymoog',
+          'rulerwd'
       ],
       include_package_data=True,  
     #   package_data={'': ['moog_nosm/moog_nosm_FEB2017/']},

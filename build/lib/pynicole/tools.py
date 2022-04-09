@@ -6,6 +6,9 @@ from astropy import constants
 from astropy import units as u
 from os import path
 import subprocess
+import rulerwd
+import pymoog
+import matplotlib.pyplot as plt
 
 para_type_dict = {
     'command': 'str',
@@ -480,3 +483,288 @@ def vald2nicole():
     '''
     This is the python verison of the IDL function `vald_to_nicole`.
     '''
+    
+    pass
+    
+def carry(x, base):
+    '''
+    Check whether x requires carry, based on the base.
+    '''
+    if type(x) == list:
+        x = np.array(x)
+    
+    if x[0] == base:
+        return x
+    for i in range(base+1):
+        div = x // base
+        mod = x % base
+        x = mod + np.concatenate([div[1:], [0]])
+        
+        if x[0] == base:
+            break
+
+    return x
+
+def create_all_grids(rows, columns):
+    x = np.array([0]*columns)
+    one = np.array([0]*columns)
+    one[-1] = 1
+
+    x_all = []
+
+    while x[0] != rows:
+        if np.all(rulerwd.tools.calculate_delta(x[x != 0]) >= 0):
+    #         print('good')
+            x_all.append(x-1)
+        x = carry(x + one, rows)
+        
+    return x_all
+
+def plot_nicole_model(model_df_list, label_list=[], mag_field=False, t_range=[], density_name='Pe', x='log_tau5000'):
+    '''
+    Plot the nicole format model(s).
+    '''
+    label_swith = True
+    if len(label_list) != 0 and len(label_list) != len(model_df_list):
+        raise ValueError('The length of label_list must be the same as that of model_df_list.')
+    if len(label_list) == 0:
+        label_list = [''] * len(model_df_list)
+        label_swith = False
+    
+    if mag_field:
+        fig, axs = plt.subplots(4, 2, figsize=(10, 10), dpi=150)
+    else:
+        fig, axs = plt.subplots(2, 2, figsize=(10, 6), dpi=150)
+    axs = axs.flatten()
+    
+    count = 0
+    for model in model_df_list:
+        axs[0].plot(model[x], model['T'], label=label_list[count], marker='.', markersize=5)
+        axs[1].plot(model[x], np.log10(model[density_name]), marker='.', markersize=5)
+        axs[2].plot(model[x], model['vmic'] / 1e5, marker='.', markersize=5)
+        axs[3].plot(model[x], model['Vlos'] / 1e5, marker='.', markersize=5)
+        if mag_field:
+            try:
+                axs[4].plot(model[x], model['b_long'])
+                axs[5].plot(model[x], model['b_x'])
+                axs[6].plot(model[x], model['b_y'])
+            except:
+                pass
+        count += 1
+        
+    
+    ylabel_list = ['T (K)', 
+                   {'Pe':r'$\log{[P_\mathrm{e} (\mathrm{dyn/cm^2})]}$', 
+                    'Ne':r'$\log{[N_\mathrm{e} (\mathrm{cm^{-3}})]}$',
+                    'Pgas':r'$\log{[P_\mathrm{gas} (\mathrm{dyn/cm^2})]}$',
+                    'rho':r'$\log{[\rho (\mathrm{g/cm^3})]}$'}, 
+                   '$V_\mathrm{mic}$ (km/s)', '$V_\mathrm{los}$ (km/s)']
+    if mag_field:
+        ylabel_list += ['$B_\mathrm{long}$', '$B_\mathrm{y}$', '$B_\mathrm{y}$']
+    count = 0
+    for ylabel in ylabel_list:
+        if x.lower() == 'log_tau5000':
+            axs[count].set_xlabel(r'$\log{\tau_{5000}}$')
+        elif x.lower() == 'z':
+            axs[count].set_xlabel('Z')
+        if type(ylabel) == str:
+            axs[count].set_ylabel(ylabel)
+        else:
+            axs[count].set_ylabel(ylabel[density_name])
+        count += 1 
+    
+    if len(t_range) == 2:
+        axs[0].set_ylim(t_range)
+    
+    if label_swith:
+        axs[0].legend()
+    plt.tight_layout()
+    
+    return axs
+    
+def interpolate_model(model_old, N_new_grid):
+    '''
+    Interpolate the model to the given number in equidistance.
+    '''
+    
+    log_interp = ['Pe', 'Pgas', 'Ne']
+
+    reverse_switch = False
+
+    if model_old.iloc[0]['log_tau5000'] > model_old.iloc[1]['log_tau5000']:
+        # Assuming the x is decreasing.
+        model_inter = model_old.loc[::-1].reset_index(drop=True)
+        reverse_switch = True
+    else:
+        model_inter = model_old
+
+    x_new_grid = np.linspace(model_inter.iloc[0][model_inter.columns[0]], model_inter.iloc[-1][model_inter.columns[0]], N_new_grid)
+    model_new_grid = pd.DataFrame({model_inter.columns[0]:x_new_grid})
+    # model_inter
+    for column in model_old.columns[1:]:
+        if column in log_interp:
+            model_new_grid[column] = 10**np.interp(x_new_grid, model_inter[model_inter.columns[0]].values, np.log10(model_inter[column].values))
+        else:
+            model_new_grid[column] = np.interp(x_new_grid, model_inter[model_inter.columns[0]].values, model_inter[column].values)
+
+    if reverse_switch:
+        model_new_grid = model_new_grid.loc[::-1].reset_index(drop=True)
+        
+    return model_new_grid
+
+def get_tau5000_model(teff, logg, m_h):
+    '''
+    Get the log_tau5000 of a model from MOOG.
+    '''
+    
+    s = pymoog.synth.synth(teff, logg, m_h, 5000-1, 5000+1, 28000, line_list='ges')
+    s.prepare_file()
+    s.run_moog()
+    s.read_model()
+    s.model['log_tau5000'] = np.log10(s.model['tauref'])
+    s.model['logNe'] = np.log10(s.model['Ne'])
+    s.model['logPgas'] = s.model['logPg']
+    
+    return s.model
+
+def create_chromo_model(model_in, log_tau_control_array, T_control_array, T_min, density_name='Pe', vmic=9*1e5, Vlos=0, plot=False, keep=False):
+    
+    '''
+    Create chromosphere model from a given LTE model.
+    
+    Input
+    --------
+    keep : bool, default False
+        If True, then the model will be kept the same as input; this can be used to convert the format to NICOLE.
+    '''
+    
+    ylabel_dict = {'Pe':r'$\log{[P_\mathrm{e} (\mathrm{dyn/cm^2})]}$', 
+                    'Ne':r'$\log{[N_\mathrm{e} (\mathrm{cm^{-3}})]}$',
+                    'Pgas':r'$\log{[P_\mathrm{gas} (\mathrm{dyn/cm^2})]}$'}
+    
+    log_tau5000 = model_in['log_tau5000']
+    T = model_in['T']
+    log_density = model_in['log{}'.format(density_name)]
+    
+    if plot:
+        plt.figure(figsize=(14, 4))
+        ax1, ax2 = plt.subplot(121), plt.subplot(122)
+        ax1.plot(log_tau5000, T, marker='.')
+        ax2.plot(log_tau5000, log_density, marker='.')
+    
+    if not(keep):
+    
+        # Find the index in T_min
+        T_min_index = np.abs(model_in['T'] - T_min).sort_values().index[0]
+
+        log_tau5000 = log_tau5000[T_min_index:].reset_index(drop=True)
+        T = T[T_min_index:].reset_index(drop=True)
+        log_density = log_density[T_min_index:].reset_index(drop=True)
+
+        if log_tau_control_array[-1] > log_tau5000[0]:
+            raise ValueError('log_tau_control_array[-1]:{} is larger than that in T_min:{}; modify log_tau_control_array.'.format(log_tau_control_array[-1], log_tau5000[0]))
+
+        log_density_fit = np.polyfit(log_tau5000[:5], log_density[:5], 1)
+        density = np.concatenate([10**np.polyval(log_density_fit, log_tau_control_array), 10**log_density])
+        T = np.concatenate([T_control_array, T])
+        log_tau5000 = np.concatenate([log_tau_control_array, log_tau5000])
+        
+    else:
+        density = 10**log_density
+    
+    if plot:
+        ax1.plot(log_tau5000, T, marker='.')
+        ax2.plot(log_tau5000, np.log10(density), marker='.')
+        
+        ax1.set_xlabel(r'$\log{\tau_{5000}}$')
+        ax2.set_xlabel(r'$\log{\tau_{5000}}$')
+        ax1.set_ylabel('$T$ (K)')
+        ax2.set_ylabel(ylabel_dict[density_name])
+        
+    model_out = pd.DataFrame()
+    model_out['log_tau5000'] = log_tau5000
+    model_out['T'] = T
+    model_out['{}'.format(density_name)] = density
+    model_out['vmic'] = vmic
+    model_out['logM'] = 0
+    model_out['Vlos'] = Vlos
+    model_out['Mx'] = 0
+    model_out['My'] = 0
+    
+    return model_out
+
+def find_consecutive_int(in_list):
+    '''
+    Find all consecutive integer in a list. Note that if only one number, it will also be included.
+    '''
+    
+    consecutive_lists = []
+    
+    s = []  # 空栈
+    for i in sorted(set(in_list)):
+        if len(s) == 0 or s[-1] + 1 == i:
+            s.append(i)  # 入栈
+        else:
+            if len(s) >= 1:
+                consecutive_lists.append(s)
+            s = []    # 清空
+            s.append(i)  # 入栈
+
+    if len(s) >= 1:
+        consecutive_lists.append(s)
+        
+    return consecutive_lists
+
+def polish_model(model, max_diff_T=800, plot=False, factor=2):
+    '''
+    Mianly do two things: 
+        1. interpolate the model if any of the two grid points have large diff_T, etc
+        2. smooth the model if required (not done yet)
+    '''
+    
+    # double the grid when del-T is large
+    
+    model_out = model
+    del_T = np.abs(rulerwd.tools.calculate_delta(model_out['T']))
+    
+    polish_indices = del_T >= max_diff_T
+    indices_list = find_consecutive_int(model_out[polish_indices].index)
+    
+    if plot:
+        ax1 = plt.subplot()
+        ax2 = plt.twinx()
+        ax1.plot(model_out['log_tau5000'], model_out['T'])
+        ax2.plot(model_out['log_tau5000'], del_T, c='C1')
+    
+#     return indices_list
+    iter_n = 0
+    while len(model_out[polish_indices]) > 0 and iter_n < 10:
+        for indices in indices_list:
+            if len(indices) == 1:
+                index_start, index_end = indices[0], indices[0]
+            else:
+                index_start, index_end = indices[0], indices[-1]
+            if index_end - index_start <= 2:
+                index_start -= 2
+                index_end += 2
+#             if index_start != 0:
+#                 index_start -= 1
+#             if index_end != len(model_out)-1:
+#                 index_end += 1
+            model_out = pd.concat([model_out.loc[:index_start], 
+                                   interpolate_model(model_out.loc[index_start:index_end], int(len(model_out.loc[index_start:index_end])*factor)), 
+                                   model_out.loc[index_end:]]).reset_index(drop=True)
+#             print(interpolate_model(model_out.loc[index_start:index_end], int(len(model_out.loc[index_start:index_end])*factor)))
+            
+
+        del_T = np.abs(rulerwd.tools.calculate_delta(model_out['T']))
+        polish_indices = del_T >= max_diff_T
+        indices_list = find_consecutive_int(model_out[polish_indices].index)
+            
+        
+        if plot:
+            ax1.plot(model_out['log_tau5000'], model_out['T'])
+            ax2.plot(model_out['log_tau5000'], del_T, ls='--')
+        iter_n += 1
+        
+    return model_out
